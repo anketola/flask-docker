@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1>Simple message wall for DevOps with Docker course</h1>
+<h2>Messages so far:</h2>
+{% if messages|length == 0 %}
+<strong>No messages on the wall so far! Write the first one.</strong><br /><br />
+{% endif %}
+<ul>
+{% for message in messages %}
+    <li>{{ message.message }}</li>
+{% endfor %}
+</ul>
+
+<form method="POST" action="{{ url_for('messages_create') }}">
+<table>
+    <tr>
+        <td>
+        {{ form.message.label }}
+        </td>
+        <td>
+        {{ form.message }}
+        </td>
+        <td>
+            <ul>
+              {% for error in form.message.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="Send a new message"/>
+        </td>
+    </tr>
+</table>
+</form>
+{% endblock %}
